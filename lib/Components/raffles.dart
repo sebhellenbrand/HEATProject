@@ -23,7 +23,7 @@ class RaffleCard extends StatefulWidget {
 class _RaffleCardState extends State<RaffleCard> {
   bool checked = false;
 
-  void _turnChecked() {
+  void _switchChecked() {
     setState(() {
       checked = !checked;
     });
@@ -33,7 +33,7 @@ class _RaffleCardState extends State<RaffleCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: _turnChecked,
+      onTap: _switchChecked,
       child: Container(
         padding: const EdgeInsets.all(8),
         child: Row(
