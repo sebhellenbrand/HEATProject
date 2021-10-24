@@ -158,13 +158,101 @@ class Shops extends StatelessWidget {
   }
 }
 
+class RaffleCard extends StatefulWidget {
+  const RaffleCard({Key? key, required this.name, required this.url})
+      : super(key: key);
+
+  final String name;
+  final String url;
+
+  @override
+  _RaffleCardState createState() => _RaffleCardState();
+}
+
+class _RaffleCardState extends State<RaffleCard> {
+  bool checked = false;
+
+  void _turnChecked() {
+    setState(() {
+      checked = !checked;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: _turnChecked,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: checked
+                      ? const Center(
+                          child: Text(
+                          "✓",
+                          style: TextStyle(color: Color(0xfff2f2f7)),
+                        ))
+                      : null,
+                  margin: const EdgeInsets.only(right: 12),
+                  height: 26,
+                  width: 26,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 2.0,
+                        color: checked
+                            ? const Color(0xffc72740)
+                            : const Color(0xff272324)),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(14),
+                    ),
+                    color: checked
+                        ? const Color(0xffC72740)
+                        : const Color(0xffF4F4F5),
+                  ),
+                ),
+                HeatText(
+                    text: widget.name,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff272324),
+                    fontSize: 16),
+              ],
+            ),
+            ButtonLink(
+                text: 'Öffnen',
+                url: widget.url,
+                color: const Color(0xffffffff),
+                backgroundColor:
+                    checked ? const Color(0xff545453) : const Color(0xffc72740))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RaffleInformation {
+  String name;
+  String url;
+  RaffleInformation(this.name, this.url);
+}
+
 class Raffles extends StatelessWidget {
   const Raffles({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final strings = ["test", "test2"];
-
+    final List<RaffleInformation> raffles = [
+      RaffleInformation("Asphaltgold", 'https://flutter.io'),
+      RaffleInformation("Afew", 'https://flutter.io'),
+      RaffleInformation("BSTN", 'https://flutter.io')
+    ];
     return Container(
         margin: const EdgeInsets.all(15.0),
         child: Column(
@@ -177,10 +265,14 @@ class Raffles extends StatelessWidget {
                   style: TextStyle(fontSize: 13, color: Color(0xff545453)),
                 )),
             Column(
-                children: strings
+                children: raffles
                     .map(
-                      (string) => Container(
-                        child: Center(child: Text(string)),
+                      (raffle) => Container(
+                        child: Center(
+                            child: RaffleCard(
+                          name: raffle.name,
+                          url: raffle.url,
+                        )),
                         width: double.infinity,
                         margin: const EdgeInsets.only(top: 2),
                         height: 54,
@@ -507,7 +599,7 @@ class ButtonLink extends StatelessWidget {
 
     return GestureDetector(
         onTap: _launchURL,
-        child: (Container(
+        child: Container(
           padding:
               const EdgeInsets.only(bottom: 8, top: 8, left: 15, right: 15),
           decoration: BoxDecoration(
@@ -521,7 +613,7 @@ class ButtonLink extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: color,
               fontSize: 16),
-        )));
+        ));
   }
 }
 
