@@ -42,12 +42,84 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class ShopCard extends StatelessWidget {
+  const ShopCard(
+      {Key? key,
+      required this.imageSrc,
+      required this.name,
+      required this.releaseDate,
+      required this.url})
+      : super(key: key);
+
+  final String imageSrc;
+  final String name;
+  final String releaseDate;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Image.asset(
+                      imageSrc,
+                      height: 20,
+                      width: 30,
+                    )),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HeatText(
+                        text: name,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xff272324),
+                        fontSize: 16),
+                    HeatText(
+                        text: releaseDate,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff9b9fa4),
+                        fontSize: 10)
+                  ],
+                )
+              ],
+            ),
+            ButtonLink(
+                text: 'Öffnen',
+                url: url,
+                color: const Color(0xffffffff),
+                backgroundColor: const Color(0xffc72740))
+          ],
+        ));
+  }
+}
+
+class ShopInformation {
+  String imageSrc;
+  String name;
+  String releaseDate;
+  String url;
+  ShopInformation(this.name, this.imageSrc, this.releaseDate, this.url);
+}
+
 class Shops extends StatelessWidget {
   const Shops({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final strings = ["test", "test2"];
+    final List<ShopInformation> shops = [
+      ShopInformation("Nike", "assets/images/1631794155-lfdylogopng-hm.png",
+          "Mo, 04.Dez 2020 - 12.00 Uhr", 'https://flutter.io'),
+      ShopInformation("StockX", "assets/images/1631794155-lfdylogopng-hm.png",
+          "Mo, 04.Dez 2020 - 12.00 Uhr", 'https://flutter.io')
+    ];
 
     return Container(
         margin: const EdgeInsets.only(top: 30, left: 15, right: 15, bottom: 15),
@@ -61,10 +133,14 @@ class Shops extends StatelessWidget {
                   style: TextStyle(fontSize: 13, color: Color(0xff545453)),
                 )),
             Column(
-                children: strings
+                children: shops
                     .map(
-                      (string) => Container(
-                        child: Center(child: Text(string)),
+                      (shop) => Container(
+                        child: ShopCard(
+                            imageSrc: shop.imageSrc,
+                            name: shop.name,
+                            releaseDate: shop.releaseDate,
+                            url: shop.url),
                         width: double.infinity,
                         margin: const EdgeInsets.only(top: 2),
                         height: 54,
@@ -334,7 +410,7 @@ class ObtainableInformation extends StatelessWidget {
               children: [
                 Container(
                     margin: const EdgeInsets.only(right: 5),
-                    child: Icon(CupertinoIcons.ticket)),
+                    child: const Icon(CupertinoIcons.ticket)),
                 const HeatText(
                   text: '3',
                   fontSize: 22,
@@ -345,8 +421,10 @@ class ObtainableInformation extends StatelessWidget {
             ),
           ),
           const ButtonLink(
-            url: 'https://flutter.io',
-          )
+              text: 'Zum Shop',
+              url: 'https://flutter.io',
+              backgroundColor: Color(0xff545453),
+              color: Color(0xfff4f4f5))
         ]));
   }
 }
@@ -404,9 +482,18 @@ class ObtainableInformationBadge extends StatelessWidget {
 }
 
 class ButtonLink extends StatelessWidget {
-  const ButtonLink({Key? key, required this.url}) : super(key: key);
+  const ButtonLink(
+      {Key? key,
+      required this.text,
+      required this.url,
+      required this.color,
+      required this.backgroundColor})
+      : super(key: key);
 
+  final String text;
   final String url;
+  final Color color;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -423,16 +510,16 @@ class ButtonLink extends StatelessWidget {
         child: (Container(
           padding:
               const EdgeInsets.only(bottom: 8, top: 8, left: 15, right: 15),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
               Radius.circular(8),
             ),
-            color: Color(0xfff4f4f5),
+            color: backgroundColor,
           ),
-          child: const HeatText(
-              text: 'Zum Shop',
+          child: HeatText(
+              text: text,
               fontWeight: FontWeight.w600,
-              color: Color(0xff545453),
+              color: color,
               fontSize: 16),
         )));
   }
@@ -463,7 +550,7 @@ class NamedProgressIndicator extends StatelessWidget {
             width: 76,
             child: HeatText(
               text: name,
-              color: Color(0xff9b9fa4),
+              color: const Color(0xff9b9fa4),
               fontSize: 10,
               fontWeight: FontWeight.w500,
             ),
@@ -472,7 +559,7 @@ class NamedProgressIndicator extends StatelessWidget {
               child: ClipRRect(
             borderRadius: BorderRadius.circular(14),
             child: LinearProgressIndicator(
-              backgroundColor: Color(0xfff4f4f5),
+              backgroundColor: const Color(0xfff4f4f5),
               minHeight: 5,
               valueColor: AlwaysStoppedAnimation<Color>(color),
               value: progress,
