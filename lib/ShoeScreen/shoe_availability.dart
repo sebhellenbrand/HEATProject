@@ -6,17 +6,19 @@ class ShoeAvailability extends StatelessWidget {
       {Key? key,
       required this.releaseState,
       required this.releaseDate,
-      required this.releaseYearAndTime})
+      required this.releaseYearAndTime,
+      this.margin = const EdgeInsets.all(0)})
       : super(key: key);
 
   final String releaseState;
   final String releaseDate;
   final String releaseYearAndTime;
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 15),
+      margin: margin,
       child: Row(
         children: [
           Container(

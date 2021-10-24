@@ -8,21 +8,19 @@ class NamedProgressIndicator extends StatelessWidget {
       {Key? key,
       required this.color,
       required this.name,
-      required this.progress})
+      required this.progress,
+      this.margin = const EdgeInsets.all(0)})
       : super(key: key);
 
   final double progress;
   final Color color;
   final String name;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(
-          bottom: 10,
-          left: 15,
-          right: 15,
-        ),
+        margin: margin,
         child: Row(children: [
           SizedBox(
             width: 76,

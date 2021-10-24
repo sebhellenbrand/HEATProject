@@ -35,18 +35,20 @@ class ShoeObtainableInformation extends StatelessWidget {
       required this.price,
       required this.shopCount,
       required this.raffleCount,
-      required this.shopUrl})
+      required this.shopUrl,
+      this.margin = const EdgeInsets.all(0)})
       : super(key: key);
 
   final String price;
   final int shopCount;
   final int raffleCount;
   final String shopUrl;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 30),
+        margin: margin,
         child: Row(children: [
           ShoeObtainableInformationBadge(
               headline: 'Preis',

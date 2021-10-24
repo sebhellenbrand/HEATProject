@@ -6,16 +6,19 @@ class ShoeBasicInformation extends StatelessWidget {
       {Key? key,
       required this.brandImgSrc,
       required this.title,
-      required this.subTitle})
+      required this.subTitle,
+      this.margin = const EdgeInsets.all(0)})
       : super(key: key);
 
   final String brandImgSrc;
   final String title;
   final String subTitle;
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: margin,
       child: Column(
         children: [
           Image.asset(
@@ -35,7 +38,6 @@ class ShoeBasicInformation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
       width: double.infinity,
-      margin: const EdgeInsets.all(15),
     );
   }
 }

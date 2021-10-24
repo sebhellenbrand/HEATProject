@@ -85,14 +85,19 @@ class _RaffleCardState extends State<RaffleCard> {
 }
 
 class Raffles extends StatelessWidget {
-  const Raffles({Key? key, required this.raffelList}) : super(key: key);
+  const Raffles(
+      {Key? key,
+      required this.raffelList,
+      this.margin = const EdgeInsets.all(0)})
+      : super(key: key);
 
   final List<Raffle> raffelList;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.all(15.0),
+        margin: margin,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

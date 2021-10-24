@@ -71,13 +71,16 @@ class ShopCard extends StatelessWidget {
 }
 
 class Shops extends StatelessWidget {
-  const Shops({Key? key, required this.shopList}) : super(key: key);
+  const Shops(
+      {Key? key, required this.shopList, this.margin = const EdgeInsets.all(0)})
+      : super(key: key);
   final List<Shop> shopList;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(top: 30, left: 15, right: 15, bottom: 15),
+        margin: margin,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
