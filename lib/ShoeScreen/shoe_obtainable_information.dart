@@ -13,7 +13,7 @@ class ShoeObtainableInformationBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(right: 15),
+        margin: const EdgeInsets.only(right: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -90,8 +90,8 @@ class ShoeObtainableInformation extends StatelessWidget {
           ButtonLink(
               text: 'Zum Shop',
               url: shopUrl,
-              backgroundColor: const Color(0xff545453),
-              color: const Color(0xfff4f4f5))
+              backgroundColor: const Color(0xfff4f4f5),
+              color: const Color(0xff545453))
         ]));
   }
 }
